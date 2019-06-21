@@ -11,13 +11,14 @@ import moment from "moment";
 const useStyles = makeStyles({
     weathers: {
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'space-around',
         marginTop: '100px',
         flexWrap: 'wrap',
     },
     weatherCard: {
         padding: '30px',
         marginBottom: '20px',
+        cursor: 'pointer',
     },
     temperature: {
         margin: '7px 0',
@@ -73,6 +74,7 @@ const FullWeather = (props) => {
         } else if (!!dataWithConcreteProperties.length && loading === true) {
             setLoading(false);
         }
+        // eslint-disable-next-line
     }, [dataWithConcreteProperties]);
 
     const clickHandler = (day) => {
@@ -81,10 +83,10 @@ const FullWeather = (props) => {
 
     const cards = useMemo(() => (
         dataWithConcreteProperties.map((item) => {
-            return(<Card className={classes.weatherCard} key={item.date}>
+            return(<Card className={classes.weatherCard} key={item.date} onClick={() => clickHandler(moment(item.date).format("DD"))}>
                 <CardContent>
                     <Typography color="textSecondary" gutterBottom>
-                        <img src={`http://openweathermap.org/img/w/${getAvgWeather(item.weather)}.png`}/>
+                        <img src={`http://openweathermap.org/img/w/${getAvgWeather(item.weather)}.png`} alt=""/>
                     </Typography>
                     <Typography variant="h5" component="h2">
                         {generateDate(item.date)}
@@ -101,6 +103,7 @@ const FullWeather = (props) => {
                 </CardActions>
             </Card>)
         })
+        // eslint-disable-next-line
     ), [dataWithConcreteProperties]);
 
     return (

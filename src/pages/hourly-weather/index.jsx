@@ -5,12 +5,15 @@ import {
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import moment from "moment";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const useStyles = makeStyles(theme => ({
     backButton: {
-        margin: theme.spacing(1),
+        margin: 8,
         background: '#c977fd',
         color: '#fff',
+        borderRadius: '50%',
+        padding: '14px',
+        minWidth: 'inherit',
     },
     singleDay: {
         display: 'flex',
@@ -37,6 +40,7 @@ const HourlyWeather = (props) => {
         if (Object.keys(props.data).length && !data.length && props.match.params) {
             setData(generateChartData(props.data[Number(props.match.params.day)]))
         }
+        // eslint-disable-next-line
     }, [props.data]);
 
     useEffect(() => {
@@ -47,6 +51,7 @@ const HourlyWeather = (props) => {
         } else if (!!data.length && loading === true) {
             setLoading(false);
         }
+        // eslint-disable-next-line
     }, [data]);
 
     const backButtonHandler = () => props.history.push('/');
@@ -70,7 +75,7 @@ const HourlyWeather = (props) => {
                                 onClick={backButtonHandler}
                                 className={classes.backButton}
                             >
-                                Return Back
+                                <FontAwesomeIcon icon="arrow-left"/>
                             </Button>
                             <BarChart
                                 width={500}

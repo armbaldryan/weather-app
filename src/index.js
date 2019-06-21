@@ -4,7 +4,15 @@ import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
+import { library } from '@fortawesome/fontawesome-svg-core'
 
+import {
+    faArrowLeft,
+} from "@fortawesome/free-solid-svg-icons";
+
+library.add(
+    faArrowLeft,
+);
 ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

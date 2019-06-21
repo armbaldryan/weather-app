@@ -60,6 +60,7 @@ const App = () => {
 
       setGeneratedData(generatedData);
     }
+    // eslint-disable-next-line
   }, [data]);
 
   return (
