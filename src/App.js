@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import FullWeather from "./pages/5-days-weather";
 import HourlyWeather from "./pages/hourly-weather";
 import { makeStyles } from '@material-ui/core/styles';
+import moment from "moment";
 
 const useStyles = makeStyles({
   app: {
@@ -40,7 +41,7 @@ const App = () => {
        **/
       const dataWithConcreteDate = data.map((item) => ({
         ...item,
-        day: new Date(item.dt_txt).getDate()
+        day: moment(item.dt_txt).format('DD'),
       }));
 
       /**

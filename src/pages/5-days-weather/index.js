@@ -6,6 +6,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import moment from "moment";
 
 const useStyles = makeStyles({
     weathers: {
@@ -20,6 +21,10 @@ const useStyles = makeStyles({
         margin: '7px 0',
         fontSize: 16,
     },
+    buttonContainer: {
+        justifyContent: 'center',
+    },
+
 });
 
 const FullWeather = (props) => {
@@ -79,8 +84,8 @@ const FullWeather = (props) => {
                         Max. {item.max > 0 ? `+${Math.round(item.max)}` : Math.round(item.max)} °
                     </Typography>
                 </CardContent>
-                <CardActions>
-                    <Button size="small" onClick={() => clickHandler(new Date(item.date).getDate())}>Learn More</Button>
+                <CardActions className={classes.buttonContainer}>
+                    <Button size="small" onClick={() => clickHandler(moment(item.date).format("DD"))}>Learn More</Button>
                 </CardActions>
             </Card>)
         })
