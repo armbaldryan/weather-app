@@ -13,9 +13,11 @@ const useStyles = makeStyles({
         display: 'flex',
         justifyContent: 'center',
         marginTop: '100px',
+        flexWrap: 'wrap',
     },
     weatherCard: {
         padding: '30px',
+        marginBottom: '20px',
     },
     temperature: {
         margin: '7px 0',
@@ -24,7 +26,6 @@ const useStyles = makeStyles({
     buttonContainer: {
         justifyContent: 'center',
     },
-
 });
 
 const FullWeather = (props) => {
@@ -78,7 +79,6 @@ const FullWeather = (props) => {
         props.history.push(`/${day}`);
     };
 
-    console.log(loading);
     const cards = useMemo(() => (
         dataWithConcreteProperties.map((item) => {
             return(<Card className={classes.weatherCard} key={item.date}>
