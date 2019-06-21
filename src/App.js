@@ -8,8 +8,7 @@ import moment from "moment";
 const useStyles = makeStyles({
   app: {
     textAlign: 'center',
-    backgroundImage: 'linear-gradient(to right top, #38b5fb, #4eacff, #77a0ff, #a48fff, #cf78fd)',
-    height: '100vh',
+    height: '100%',
   },
   appHeader: {
     background: '#282c34',
