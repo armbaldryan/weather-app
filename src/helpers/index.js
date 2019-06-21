@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 export const getAvgWeather = (data) => {
     if(data.length === 0)
         return null;
@@ -19,13 +21,7 @@ export const getAvgWeather = (data) => {
     return maxEl;
 };
 
-export const generateDate = (date) => {
-    const newDate = new Date(date);
-    const month = newDate.getMonth() + 1;
-    const day = newDate.getDate();
-    const year = newDate.getFullYear();
-    return `${day}-${month}-${year}`;
-};
+export const generateDate = (date) => moment("date", "DD-MM-YYYY");
 
 
 export const generateDegrees = (temperature) => {
