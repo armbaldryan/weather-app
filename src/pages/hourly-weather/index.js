@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine,
 } from 'recharts';
-import {generateDegrees} from "../../helpers";
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -26,7 +25,7 @@ const HourlyWeather = (props) => {
 
     const generateChartData = (data) => data.map((item) => ({
         name: new Date(item.dt_txt).toLocaleTimeString(),
-        temp: generateDegrees(item.main.temp),
+        temp: Math.round(item.main.temp),
     }));
 
     const [data, setData] = useState((Object.keys(props.data).length && props.match.params.day) ? generateChartData(props.data[Number(props.match.params.day)]) : []);

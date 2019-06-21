@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {generateDate, generateDegrees, getAvgWeather} from "../../helpers";
+import {generateDate, getAvgWeather} from "../../helpers";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -73,10 +73,10 @@ const FullWeather = (props) => {
                         {generateDate(item.date)}
                     </Typography>
                     <Typography className={classes.temperature}>
-                        Min. {generateDegrees(item.min)} °
+                        Min. {item.min > 0 ? `+${Math.round(item.min)}` : Math.round(item.min)} °
                     </Typography>
                     <Typography className={classes.temperature}>
-                        Max. {generateDegrees(item.max)} °
+                        Max. {item.max > 0 ? `+${Math.round(item.max)}` : Math.round(item.max)} °
                     </Typography>
                 </CardContent>
                 <CardActions>

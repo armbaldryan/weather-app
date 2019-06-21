@@ -21,13 +21,4 @@ export const getAvgWeather = (data) => {
     return maxEl;
 };
 
-export const generateDate = (date) => moment("date", "DD-MM-YYYY");
-
-
-export const generateDegrees = (temperature) => {
-    if (temperature > 0) {
-        return `+${Math.round(temperature)}`
-    } else {
-        return Math.round(temperature);
-    }
-};
+export const generateDate = (date) => moment(date).format("DD-MM-YYYY");
