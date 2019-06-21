@@ -30,6 +30,7 @@ const useStyles = makeStyles({
 const FullWeather = (props) => {
     const classes = useStyles();
 
+    const [loading, setLoading] = useState(true);
     const [dataWithConcreteProperties, setData] = useState([]);
 
     useEffect(() => {
@@ -39,34 +40,45 @@ const FullWeather = (props) => {
          * weather of the day and show image
          */
       if (props.data) {
-        setData(Object.values(props.data).map((item) => {
-          return (item.reduce((acc, subItem) => {
-            if (!acc.min) {
-              acc.min = subItem.main.temp_min;
-              acc.date = subItem.dt_txt;
-            } else if (acc.min > subItem.main.temp_min) {
-              acc.min = subItem.main.temp_min;
-            }
-            if (!acc.max) {
-              acc.max = subItem.main.temp_max;
-            } else if (acc.max < subItem.main.temp_max) {
-              acc.max = subItem.main.temp_max;
-            }
-            if (!acc.weather) {
-              acc.weather = [...subItem.weather];
-            } else {
-              acc.weather = [...acc.weather, ...subItem.weather]
-            }
-            return acc;
-          }, {}));
-        }));
-      }
+            setData(Object.values(props.data).map((item) => {
+              return (item.reduce((acc, subItem) => {
+                if (!acc.min) {
+                  acc.min = subItem.main.temp_min;
+                  acc.date = subItem.dt_txt;
+                } else if (acc.min > subItem.main.temp_min) {
+                  acc.min = subItem.main.temp_min;
+                }
+                if (!acc.max) {
+                  acc.max = subItem.main.temp_max;
+                } else if (acc.max < subItem.main.temp_max) {
+                  acc.max = subItem.main.temp_max;
+                }
+                if (!acc.weather) {
+                  acc.weather = [...subItem.weather];
+                } else {
+                  acc.weather = [...acc.weather, ...subItem.weather]
+                }
+                return acc;
+              }, {}));
+            }));
+        }
     }, [props.data]);
+
+    useEffect(() => {
+        if (
+            !dataWithConcreteProperties.length && loading !== true
+        ) {
+            setLoading(true);
+        } else if (!!dataWithConcreteProperties.length && loading === true) {
+            setLoading(false);
+        }
+    }, [dataWithConcreteProperties]);
 
     const clickHandler = (day) => {
         props.history.push(`/${day}`);
     };
 
+    console.log(loading);
     const cards = useMemo(() => (
         dataWithConcreteProperties.map((item) => {
             return(<Card className={classes.weatherCard} key={item.date}>
@@ -93,9 +105,23 @@ const FullWeather = (props) => {
 
     return (
         <>
-        <div className={classes.weathers}>
-        {!!dataWithConcreteProperties.length && cards}
-        </div>
+        {
+            loading ? (
+                    <div id="preloader">
+                        <div id="ctn-preloader" className="ctn-preloader">
+                            <div className="animation-preloader">
+                                <div className="spinner"/>
+                            </div>
+                        </div>
+                    </div>
+                )
+                : (
+                <div className={classes.weathers}>
+                    {!!dataWithConcreteProperties.length && cards}
+                </div>
+            )
+        }
+
     </>)
 };
 

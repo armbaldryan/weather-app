@@ -4,6 +4,7 @@ import {
 } from 'recharts';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import moment from "moment";
 
 const useStyles = makeStyles(theme => ({
     backButton: {
@@ -21,10 +22,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const HourlyWeather = (props) => {
+    const [loading, setLoading] = useState(true);
+
     const classes = useStyles();
 
     const generateChartData = (data) => data.map((item) => ({
-        name: new Date(item.dt_txt).toLocaleTimeString(),
+        name: moment(item.dt_txt).format("h:mm a"),
         temp: Math.round(item.main.temp),
     }));
 
@@ -36,34 +39,55 @@ const HourlyWeather = (props) => {
         }
     }, [props.data]);
 
+    useEffect(() => {
+        if (
+            !data.length && loading !== true
+        ) {
+            setLoading(true);
+        } else if (!!data.length && loading === true) {
+            setLoading(false);
+        }
+    }, [data]);
+
     const backButtonHandler = () => props.history.push('/');
 
     return (
-        <div className={classes.singleDay}>
-            <Button
-                variant="contained"
-                onClick={backButtonHandler}
-                className={classes.backButton}
-            >
-                Return Back
-            </Button>
-            <BarChart
-                width={500}
-                height={300}
-                data={data}
-                margin={{
-                    top: 5, right: 30, left: 20, bottom: 5,
-                }}
-            >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <ReferenceLine y={0} stroke="#000" />
-                <Bar dataKey="temp" fill="#C977FD" />
-            </BarChart>
-        </div>
+        loading ? (
+                <div id="preloader">
+                    <div id="ctn-preloader" className="ctn-preloader">
+                        <div className="animation-preloader">
+                            <div className="spinner"/>
+                        </div>
+                    </div>
+                </div>
+            )
+            : (
+                <div className={classes.singleDay}>
+                    <Button
+                        variant="contained"
+                        onClick={backButtonHandler}
+                        className={classes.backButton}
+                    >
+                        Return Back
+                    </Button>
+                    <BarChart
+                        width={500}
+                        height={300}
+                        data={data}
+                        margin={{
+                            top: 5, right: 30, left: 20, bottom: 5,
+                        }}
+                    >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <ReferenceLine y={0} stroke="#000" />
+                        <Bar dataKey="temp" fill="#C977FD" />
+                    </BarChart>
+                </div>
+            )
     )
 };
 
