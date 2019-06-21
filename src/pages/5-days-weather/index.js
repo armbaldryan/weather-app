@@ -104,9 +104,9 @@ const FullWeather = (props) => {
     ), [dataWithConcreteProperties]);
 
     return (
-        <>
-        {
-            loading ? (
+        <div className={classes.weathers}>
+            {
+                loading ? (
                     <div id="preloader">
                         <div id="ctn-preloader" className="ctn-preloader">
                             <div className="animation-preloader">
@@ -114,15 +114,11 @@ const FullWeather = (props) => {
                             </div>
                         </div>
                     </div>
-                )
-                : (
-                <div className={classes.weathers}>
-                    {!!dataWithConcreteProperties.length && cards}
-                </div>
-            )
-        }
-
-    </>)
+                    )
+                    : !!dataWithConcreteProperties.length && cards
+            }
+        </div>
+    )
 };
 
 export default FullWeather;

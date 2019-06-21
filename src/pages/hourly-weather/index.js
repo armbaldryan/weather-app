@@ -52,43 +52,47 @@ const HourlyWeather = (props) => {
     const backButtonHandler = () => props.history.push('/');
 
     return (
-        loading ? (
-                <div id="preloader">
-                    <div id="ctn-preloader" className="ctn-preloader">
-                        <div className="animation-preloader">
-                            <div className="spinner"/>
+        <div className={classes.singleDay}>
+            {
+                loading ? (
+                        <div id="preloader">
+                            <div id="ctn-preloader" className="ctn-preloader">
+                                <div className="animation-preloader">
+                                    <div className="spinner"/>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            )
-            : (
-                <div className={classes.singleDay}>
-                    <Button
-                        variant="contained"
-                        onClick={backButtonHandler}
-                        className={classes.backButton}
-                    >
-                        Return Back
-                    </Button>
-                    <BarChart
-                        width={500}
-                        height={300}
-                        data={data}
-                        margin={{
-                            top: 5, right: 30, left: 20, bottom: 5,
-                        }}
-                    >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <ReferenceLine y={0} stroke="#000" />
-                        <Bar dataKey="temp" fill="#C977FD" />
-                    </BarChart>
-                </div>
-            )
-    )
+                    )
+                    : (
+                        <>
+                            <Button
+                                variant="contained"
+                                onClick={backButtonHandler}
+                                className={classes.backButton}
+                            >
+                                Return Back
+                            </Button>
+                            <BarChart
+                                width={500}
+                                height={300}
+                                data={data}
+                                margin={{
+                                    top: 5, right: 30, left: 20, bottom: 5,
+                                }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3"/>
+                                <XAxis dataKey="name"/>
+                                <YAxis/>
+                                <Tooltip/>
+                                <Legend/>
+                                <ReferenceLine y={0} stroke="#000"/>
+                                <Bar dataKey="temp" fill="#C977FD"/>
+                            </BarChart>
+                        </>
+                    )
+            }
+        </div>
+    );
 };
 
 export default HourlyWeather;
