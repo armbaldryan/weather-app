@@ -78,7 +78,7 @@ const HourlyWeather = (props) => {
                                 <FontAwesomeIcon icon="arrow-left"/>
                             </Button>
                             <BarChart
-                                width={500}
+                                width={window.innerWidth > 600 ? 500 : 300}
                                 height={300}
                                 data={data}
                                 margin={{
